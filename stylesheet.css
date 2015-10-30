@@ -1,0 +1,88 @@
+body
+    {
+    background-color: darkgreen;
+    }
+
+header
+	{
+    display: inline-block;
+	width: 750px;
+	height: 100px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	}
+
+#goalie
+	{
+	position: relative;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 125px;
+	height: 100px;
+	width: 500px;
+	background-color: #273d15;	
+	font-size: 87px;
+	color: white;
+	text-align: center;
+	}
+
+#leftGoal
+	{
+	position: relative;
+	float: left;
+	}
+
+#rightGoal
+	{
+	position: relative;
+	float: right;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	}
+
+#myCanvas
+	{
+	background-color: green;
+	}
+
+#rightNet
+	{
+    position: absolute;
+    left: 680px;
+    top: 110px;
+    z-index: 1;
+	}
+
+#leftNet
+	{
+    position: absolute;
+    left: 10px;
+    top: 110px;
+    z-index: 1;
+	}
+
+#greenGoalie
+	{
+    position: absolute;
+    left: 80px;
+    top: 230px;
+    z-index: 1;
+	}
+
+#timer
+    {
+    width: 750px;
+    text-align: center;
+    background-color: darkgreen;
+    }
+
+#countdown
+    {
+    font-size: 75px;
+    color: red;
+    }

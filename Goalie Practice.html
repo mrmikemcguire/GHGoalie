@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Goalie Practice</title>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+
+ <body>
+	 <div>
+    	<img id="rightNet" src="images/rightNet.png" alt="net" />
+    	<img id="leftNet" src="images/leftNet.png" alt="net" />
+		<img id="greenGoalie" src="images/greenGoalie.png" alt="left goalie" />
+
+		<canvas id="myCanvas" width="700" height="350"></canvas>
+	 </div>
+	 
+
+     
+    <script type="text/javascript">
+                    var canvas;
+                    var ctx;
+                    var x = 500;        // this is the starting position
+                    var y = 250;
+                    var mx = 1;
+                    var my = 1;
+                    var screenWidth = 700;
+                    var screenHeight = 350;
+                    var bouncerWidth = 50;
+                    var bouncerHeight = 50;
+                    var obsWidth = 100;
+                    var obsHeight = 100;
+                    var obsPosX = 525;
+                    var obsPosY = 125;
+                    var obsSpeed = 2;
+        
+                    var net = new Image();
+                    net.src = "images/net.jpg";
+                    var goalie = new Image();
+                    goalie.src = "images/myGoalie.png";
+                    var ball = new Image();
+                    ball.src = "images/ball50.png";
+					var greenGoalie = new Image();
+					greenGoalie.src = "images/greenGoalie.png";
+
+        function drawBorder()
+            {
+            ctx.rect(0,0,screenWidth, screenHeight);
+            ctx.stroke();
+            }   
+        
+        function drawGoalie(obsPosX, obsPosY)
+            {
+            ctx.drawImage(goalie, obsPosX, obsPosY);
+            }
+            
+        function drawBall(x, y)   //this draws the square
+            {
+            ctx.drawImage(ball,x,y);
+            }
+
+        function clear()        //this clears the canvas
+            {
+            ctx.clearRect(0, 0, screenWidth, screenHeight);
+            }
+
+        function init()         //this calls the draw() function every 10ms
+            {
+            canvas = document.getElementById("myCanvas");
+            ctx = canvas.getContext("2d");
+            return setInterval(draw, 3);
+            }
+
+        function draw()         //this animates the square
+            {
+            clear();
+            drawBorder();
+            drawGoalie(obsPosX, obsPosY );
+            drawBall(x, y);
+            
+        //outerwalls
+            if (x + mx > screenWidth - bouncerWidth || x + mx < 0)
+                mx = -mx;
+            if (y + my > screenHeight - bouncerHeight || y + my < 0)
+                my = -my;
+                
+        //obstacle
+            if (
+                (x + mx >= obsPosX - bouncerWidth &&
+                 x + mx <= obsPosX + obsWidth) &&
+                (y + my == obsPosY - bouncerHeight || 
+                 y + my == obsPosY + obsHeight))
+                    {
+                    my = -my;
+                    }
+            if (   
+                (y + my >= obsPosY - bouncerHeight &&  
+                 y + my <= obsPosY + obsHeight) && 
+                (x + mx == obsPosX - bouncerWidth ||
+                 x + mx == obsPosX + obsWidth))
+                    {
+                    mx = -mx;    
+     			    }
+    
+            x += mx;
+            y += my;
+            }
+        
+        function doKeyDown(event)
+            {
+            switch (event.keyCode) 
+                {
+                case 38:  /* Up arrow was pressed */
+                    obsPosY -= obsSpeed;
+                    if (obsPosY - my < 0)
+                        {
+                        obsPosY = 0;
+                        }
+                    break;
+                case 40:  /* Down arrow was pressed */
+                    obsPosY+= obsSpeed;
+                    if (obsPosY + my >= screenHeight - obsHeight)
+                        {
+                        obsPosY = screenHeight - obsHeight;
+                        }
+                    break;
+                case 37:  /* Left arrow was pressed */
+                    obsPosX -= obsSpeed;
+                    if (obsPosX - mx <= 0)
+                        {
+                        obsPosX = 0;
+                        }
+                    break;
+                case 39:  /* Right arrow was pressed */
+                    obsPosX += obsSpeed;
+                    if (obsPosX + mx >= screenWidth - obsWidth)
+                        {
+                        obsPosX = screenWidth - obsWidth;
+                        }
+                    break;
+                }
+            }
+
+        init();                 //this starts the whole thing going
+        window.addEventListener("keydown", doKeyDown, true);
+ 
+    </script>
+</body>
+</html>
